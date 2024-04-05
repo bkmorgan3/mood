@@ -2,7 +2,7 @@ import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
-export const PATCH = async (request, {params}) => {
+export const PATCH = async (request: Response, {params}) => {
     const {content} = await request.json()
     const user = await getUserByClerkId()
     const updatedEntry = await prisma.journalEntry.update({
