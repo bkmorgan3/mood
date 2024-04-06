@@ -3,6 +3,7 @@ import EntryCard from "@/components/EntryCard";
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import Link from "next/link";
+import { analyze } from "@/utils/ai";
 
 const getEntries = async () => {
     const user = await getUserByClerkId();
@@ -14,6 +15,9 @@ const getEntries = async () => {
             createdAt: 'desc'
         }
     })
+    await analyze(`I am going to give you a journal entry and I want you to analyze it for a few things.  I want the mood, subject of the entry, and a color representing the mood. 
+    I would like you to respond back with the formatted JSON like so:  {"mood": "", "subject":"", "color": "", "negative":""}.
+    entry: Today is an ok day.  I have one week left at my contract job and I am worried about finding a new job.  The job market is very tough right now and I don't think I am as skilled as other engineers.  I keep applying but am not getting many interviews.  I am worried.`)
     return entries
 }
 
