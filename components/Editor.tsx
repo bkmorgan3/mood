@@ -5,23 +5,52 @@ import { useAutosave } from "react-autosave"
 
 const Editor = ({entry}) => {
     const [value, setValue] = useState(entry.content)
+    const [analysis, setAnalysis] = useState(entry.analysis)
+
     const [isLoading, setIsLoading] = useState(false)
+    const { color, summary, subject, negative, mood } = analysis
+    const analysisData = [
+        {name: 'Summary', value: summary},
+        {name: 'Subject', value: subject},
+        {name: 'Mood', value: mood},
+        {name: 'Negative', value: negative ? 'True' : 'False'},
+    ]
+    
     useAutosave({
         data: value,
         onSave: async (_value) => {
             setIsLoading(true)
-            const updated = await updateEntry(entry.id, _value)
+            const data = await updateEntry(entry.id, _value)
+            setAnalysis(data.analysis)
             setIsLoading(false)
         }
     })
     return (
-        <div className="h-full w-full">
+        <div className="h-full w-full grid grid-cols-3">
+            <div className="col-span-2">
             {isLoading && <div>Loading...</div>}
-            <textarea
-            value={value}
-            onChange={(e) => setValue(e.target.value)} 
-            className="h-full w-full"
-        />
+                <textarea
+                value={value}
+                onChange={(e) => setValue(e.target.value)} 
+                className="h-full w-full p-8 text-xl outline-none"
+                />
+            </div>
+
+         <div className="border-l border-black/10">
+            <div className="px-6 py-10" style={{backgroundColor: color}}>
+              <h2 className="text-2xl">Analysis</h2>    
+            </div>
+            <div>
+                <ul>
+                    {analysisData.map(item => (
+                        <li key={item.name} className='flex items-center justify-between px-2 py-4 border-b border-t border-black/10'>
+                            <span className="text-lg font-semibold">{item.name}</span>
+                            <span>{item.value}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
         </div>
     )
 }
