@@ -28,11 +28,11 @@ const Editor = ({entry}) => {
     return (
         <div className="h-full w-full grid grid-cols-3">
             <div className="col-span-2">
-            {isLoading && <div>Loading...</div>}
+                {isLoading && <div>Loading...</div>}
                 <textarea
-                value={value}
-                onChange={(e) => setValue(e.target.value)} 
-                className="h-full w-full p-8 text-xl outline-none"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)} 
+                    className="h-full w-full p-8 text-xl outline-none"
                 />
             </div>
 
