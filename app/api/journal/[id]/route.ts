@@ -1,9 +1,9 @@
 import { analyze } from "@/utils/ai"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
 
-export const PATCH = async (request: Response, {params}) => {
+export const PATCH = async (request: NextRequest, {params}) => {
     const {content} = await request.json()
     const user = await getUserByClerkId()
     const updatedEntry = await prisma.journalEntry.update({
@@ -27,7 +27,9 @@ export const PATCH = async (request: Response, {params}) => {
             entryId: updatedEntry.id,
             ...analysis
         },
-        update: analysis,
+        update: {
+            ...analysis
+        },
     })
     return NextResponse.json({data: {...updatedEntry, analysis: updated }})
 }

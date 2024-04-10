@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { vi } from 'vitest'
+import { vi } from 'vitest'.r
 import Page from '../app/page'
 
 vi.mock('@clerk/nextjs', () => {
@@ -15,6 +15,12 @@ vi.mock('@clerk/nextjs', () => {
         })
     }
     return mockedFunctions
+})
+
+vi.mock('next/font/google', () => {
+  return {
+    Inter: () => ({ className: 'inter' }),
+  }
 })
 
 
