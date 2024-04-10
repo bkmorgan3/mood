@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { vi } from 'vitest'
+import { vi } from 'vitest'.r
 import Page from '../app/page'
 
 vi.mock('@clerk/nextjs', () => {
