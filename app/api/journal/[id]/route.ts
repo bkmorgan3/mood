@@ -1,5 +1,4 @@
 import { analyze } from "@/utils/ai"
-import { update } from "@/utils/actions"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse, NextRequest } from "next/server"
@@ -32,7 +31,5 @@ export const PATCH = async (request: NextRequest, {params}) => {
             ...analysis
         },
     })
-
-    update(['/journal'])
     return NextResponse.json({data: {...updatedEntry, analysis: updated }})
 }
