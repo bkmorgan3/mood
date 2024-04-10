@@ -17,6 +17,12 @@ vi.mock('@clerk/nextjs', () => {
     return mockedFunctions
 })
 
+vi.mock('next/font/google', () => {
+  return {
+    Inter: () => ({ className: 'inter' }),
+  }
+})
+
 
 test('Home', async () => {
     render(await Page())
