@@ -6,9 +6,9 @@ import { useState } from "react"
 const Question = () => {
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
-    const[resp, setResp] = useState()
+    const [resp, setResp] = useState()
 
-    const handleSubmit =  async (e )=> {
+    const handleSubmit =  async (e)=> {
         e.preventDefault()
         setLoading(true)
         const answer = await askQuestion(value)

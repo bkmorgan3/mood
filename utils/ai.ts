@@ -70,5 +70,5 @@ export const qa = async (question, entries) => {
         input_documents: relevantDocs,
         question
     })
-
+    return res.output_text
 }
